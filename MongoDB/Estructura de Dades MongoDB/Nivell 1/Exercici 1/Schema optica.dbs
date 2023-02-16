@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="MongoDb" id="Project-4c4" database="MongoDb" >
+	<schema name="Optica_mongoDB" >
+		<table name="Client" >
+			<column name="_id" type="objectId" jt="-8" mandatory="y" />
+			<column name="nom" type="string" jt="12" mandatory="y" />
+			<column name="adreça_postal" type="string" jt="12" mandatory="y" />
+			<column name="telefon" type="int" jt="4" />
+			<column name="email" type="string" jt="12" mandatory="y" />
+			<column name="data_register" type="timestamp" jt="93" mandatory="y" />
+			<column name="recomanat" type="string" jt="12" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<fk name="fk_client_client" virtual="y" to_schema="Optica_mongoDB" to_table="Client" >
+				<fk_column name="recomanat" pk="recomanat" />
+			</fk>
+		</table>
+		<table name="Proveidor" >
+			<column name="_id" type="objectId" jt="-8" mandatory="y" />
+			<column name="nom" type="string" jt="12" mandatory="y" />
+			<column name="telefon" type="int" jt="4" mandatory="y" />
+			<column name="fax" type="int" jt="4" />
+			<column name="nif" type="string" jt="12" mandatory="y" />
+			<column name="Adreça" prior="Adreçaa" type="object" jt="4999544" >
+				<column name="carrer" type="string" jt="12" mandatory="y" />
+				<column name="ciutat" type="string" jt="12" mandatory="y" />
+				<column name="codi_postal" type="int" jt="4" mandatory="y" />
+				<column name="numero" type="int" jt="4" mandatory="y" />
+				<column name="pais" type="string" jt="12" mandatory="y" />
+				<column name="pis" type="int" jt="4" mandatory="y" />
+				<column name="porta" type="int" jt="4" mandatory="y" />
+			</column>
+			<column name="email" type="string" jt="12" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<fk name="fk_proveidor_ulleres" virtual="y" to_schema="Optica_mongoDB" to_table="Ulleres" >
+				<fk_column name="_id" pk="_id" />
+			</fk>
+		</table>
+		<table name="Ulleres" >
+			<column name="_id" type="objectId" jt="-8" mandatory="y" />
+			<column name="marca" type="string" jt="12" mandatory="y" />
+			<column name="graduacio_vidre1" type="int" jt="4" mandatory="y" />
+			<column name="graduacio_vidre2" type="int" jt="4" mandatory="y" />
+			<column name="color_muntura" type="string" jt="12" mandatory="y" />
+			<column name="color_v1" type="string" jt="12" mandatory="y" />
+			<column name="color_v2" type="string" jt="12" mandatory="y" />
+			<column name="preu" type="int" jt="4" mandatory="y" />
+			<column name="muntura" prior="munturaa" type="object" jt="4999544" mandatory="y" >
+				<column name="pasta" type="bool" jt="16" mandatory="y" />
+				<column name="metalica" type="bool" jt="16" mandatory="y" />
+				<column name="flotant" type="bool" jt="16" mandatory="y" />
+			</column>
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+		</table>
+		<table name="Ventes" >
+			<column name="_id" type="objectId" jt="-8" mandatory="y" />
+			<column name="clients" type="string" jt="12" mandatory="y" />
+			<column name="ulleres" type="string" jt="12" mandatory="y" />
+			<column name="empleat" type="string" jt="12" mandatory="y" />
+			<column name="data_venta" type="date" jt="91" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<fk name="fk_ventes_ulleres" virtual="y" to_schema="Optica_mongoDB" to_table="Ulleres" >
+				<fk_column name="ulleres" pk="_id" />
+			</fk>
+			<fk name="fk_ventes_client" virtual="y" to_schema="Optica_mongoDB" to_table="Client" >
+				<fk_column name="clients" pk="_id" />
+			</fk>
+		</table>
+	</schema>
+	<connector name="MongoDb" database="MongoDb" driver_class="com.wisecoders.dbschema.mongodb.JdbcDriver" driver_jar="mongojdbc4.8.jar" driver_desc="No Authentication" host="localhost" port="27017" instance="Optica_mongoDB" user="admin" useSystemProxy="false" />
+	<layout name="Adreça" id="Layout-2111" confirmed="y" show_relation="columns" >
+		<entity schema="Optica_mongoDB" name="Proveidor" color="3986C1" x="48" y="48" />
+		<script name="Adreça" id="Editor-922" language="SQL" >
+			<string><![CDATA[Optica_mongoDB.Adreça.find()]]></string>
+		</script>
+		<browser id="Browse-ae" name="Proveidor" confirm_updates="y" confirmed="y" >
+			<browse_table schema="Optica_mongoDB" entity="Proveidor" x="20" y="20" width="400" height="300" record_view="y" />
+		</browser>
+	</layout>
+	<layout name="Collection" id="Layout-1f4a" confirmed="y" show_relation="columns" >
+		<script name="Collection" id="Editor-2133" language="SQL" >
+			<string><![CDATA[Optica_mongoDB.Collection.find()]]></string>
+		</script>
+	</layout>
+	<layout name="Collection_0" id="Layout-10e0" confirmed="y" show_relation="columns" >
+		<script name="Collection_0" id="Editor-dbf" language="SQL" >
+			<string><![CDATA[Optica_mongoDB.Collection_0.find()]]></string>
+		</script>
+	</layout>
+	<layout name="Main Layout" id="Layout-a45" show_relation="columns" >
+		<entity schema="Optica_mongoDB" name="Proveidor" column="Adreça" color="3986C1" x="320" y="64" />
+		<entity schema="Optica_mongoDB" name="Client" color="D1BEF4" x="528" y="144" />
+		<entity schema="Optica_mongoDB" name="Proveidor" color="F4DDBE" x="80" y="48" />
+		<entity schema="Optica_mongoDB" name="Ulleres" color="BED3F4" x="48" y="368" />
+		<entity schema="Optica_mongoDB" name="Ventes" color="BEBEF4" x="544" y="432" />
+		<entity schema="Optica_mongoDB" name="Ulleres" column="muntura" color="3986C1" x="320" y="512" />
+		<script name="Sample" id="Editor-213a" language="SQL" confirmed="y" >
+			<string><![CDATA[db.sampleCollection.insert({"SampleKey":"SampleValue"}); ]]></string>
+		</script>
+		<browser id="Browse-1ca0" name="Ulleres" confirm_updates="y" confirmed="y" >
+			<browse_table schema="Optica_mongoDB" entity="Ulleres" x="20" y="20" width="400" height="300" record_view="y" />
+		</browser>
+		<browser id="Browse-16e9" name="fk_adreça_proveidor" confirm_updates="y" confirmed="y" >
+			<browse_table schema="Optica_mongoDB" entity="Proveidor" x="20" y="20" width="400" height="300" record_view="y" />
+		</browser>
+		<query id="Query-2390" name="adreça" groupby="y" confirmed="y" >
+			<query_table schema="Optica_mongoDB" name="Proveidor" alias="Proveidor" x="48" y="48" >
+				<column name="_id" />
+				<column name="nom" />
+				<column name="telefon" />
+				<column name="fax" />
+				<column name="nif" />
+			</query_table>
+		</query>
+	</layout>
+</project>

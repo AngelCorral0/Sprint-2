@@ -1,39 +1,4 @@
-
-use('Optica_mongoDB');db.createCollection('Adreça',{ validator: { $jsonSchema: {
-  "bsonType": "object",
-  "required": [
-    "carrer",
-    "numero",
-    "pis",
-    "porta",
-    "ciutat",
-    "codi_postal",
-    "pais"
-  ],
-  "properties": {
-    "numero": {
-      "bsonType": "int"
-    },
-    "ciutat": {
-      "bsonType": "string"
-    },
-    "carrer": {
-      "bsonType": "string"
-    },
-    "codi_postal": {
-      "bsonType": "int"
-    },
-    "pis": {
-      "bsonType": "int"
-    },
-    "porta": {
-      "bsonType": "int"
-    },
-    "pais": {
-      "bsonType": "string"
-    }
-  }
-} }});
+//Create Database 'Optica_mongoDB'
 
 use('Optica_mongoDB');db.createCollection('Client',{ validator: { $jsonSchema: {
   "bsonType": "object",
@@ -65,48 +30,63 @@ use('Optica_mongoDB');db.createCollection('Client',{ validator: { $jsonSchema: {
   }
 } }});
 
-use('Optica_mongoDB');db.createCollection('Muntura',{ validator: { $jsonSchema: {
-  "bsonType": "object",
-  "required": [
-    "flotant",
-    "pasta",
-    "metalica"
-  ],
-  "properties": {
-    "metalica": {
-      "bsonType": "string"
-    },
-    "flotant": {
-      "bsonType": "string"
-    },
-    "pasta": {
-      "bsonType": "string"
-    }
-  }
-} }});
-
 use('Optica_mongoDB');db.createCollection('Proveidor',{ validator: { $jsonSchema: {
   "bsonType": "object",
   "required": [
     "nom",
-    "adreça",
     "telefon",
-    "nif"
+    "nif",
+    "email"
   ],
   "properties": {
+    "Adreça": {
+      "bsonType": "object",
+      "required": [
+        "carrer",
+        "ciutat",
+        "codi_postal",
+        "numero",
+        "pais",
+        "pis",
+        "porta"
+      ],
+      "properties": {
+        "numero": {
+          "bsonType": "int"
+        },
+        "ciutat": {
+          "bsonType": "string"
+        },
+        "carrer": {
+          "bsonType": "string"
+        },
+        "codi_postal": {
+          "bsonType": "int"
+        },
+        "pis": {
+          "bsonType": "int"
+        },
+        "porta": {
+          "bsonType": "int"
+        },
+        "pais": {
+          "bsonType": "string"
+        }
+      }
+    },
     "telefon": {
       "bsonType": "int"
     },
     "nif": {
       "bsonType": "string"
     },
-    "adreça": {
-      "bsonType": "string"
-    },
     "fax": {
       "bsonType": "int"
     },
     "nom": {
+      "bsonType": "string"
+    },
+    "email": {
       "bsonType": "string"
     }
   }
@@ -118,11 +98,11 @@ use('Optica_mongoDB');db.createCollection('Ulleres',{ validator: { $jsonSchema: 
     "marca",
     "graduacio_vidre1",
     "graduacio_vidre2",
-    "muntura",
     "color_muntura",
     "color_v1",
     "color_v2",
-    "preu"
+    "preu",
+    "muntura"
   ],
   "properties": {
     "marca": {
@@ -132,7 +112,23 @@ use('Optica_mongoDB');db.createCollection('Ulleres',{ validator: { $jsonSchema: 
       "bsonType": "string"
     },
     "muntura": {
-      "bsonType": "string"
+      "bsonType": "object",
+      "required": [
+        "pasta",
+        "metalica",
+        "flotant"
+      ],
+      "properties": {
+        "metalica": {
+          "bsonType": "bool"
+        },
+        "flotant": {
+          "bsonType": "bool"
+        },
+        "pasta": {
+          "bsonType": "bool"
+        }
+      }
     },
     "preu": {
       "bsonType": "int"
